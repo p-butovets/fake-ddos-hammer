@@ -22,12 +22,14 @@ def test():
         headers = {
             'User-Agent': random.choice(USER_AGENT)
         }
-        post_cannon = requests.post(url, headers=headers)
         get_cannon = requests.get(url, headers=headers)
+        if get_cannon.status_code == 200:
+            print('Server is running with status %d' % get_cannon.status_code)
+        else:
+            print(f'Server may be down with status code %d' % get_cannon.status_code)
         for i in range(int(threads_numbers)):
             thread = Thread(target=test)
         thread.start()
-        print('Тест ОК...')
 
 
 test()
